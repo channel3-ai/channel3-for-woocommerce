@@ -15,7 +15,7 @@ A WooCommerce Extension inspired by [Create Woo Extension](https://github.com/wo
 ```
 npm install
 npm run build
-wp-env start
+npm run wp-env start
 ```
 
 Visit the added page at http://localhost:8888/wp-admin/admin.php?page=wc-admin&path=%2Fexample.

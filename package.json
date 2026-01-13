@@ -12,6 +12,7 @@
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start --blocks-manifest",
+		"wp-env": "wp-env",
 		"postinstall": "rm -f src/block.json && composer install"
 	},
 	"dependencies": {
@@ -22,6 +23,7 @@
 	"devDependencies": {
 		"@woocommerce/dependency-extraction-webpack-plugin": "latest",
 		"@woocommerce/eslint-plugin": "latest",
+		"@wordpress/env": "^10.37.0",
 		"@wordpress/prettier-config": "latest",
 		"@wordpress/scripts": "^31.2.0"
 	}
