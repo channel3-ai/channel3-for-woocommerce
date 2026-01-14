@@ -56,8 +56,25 @@ npm run wp-env start
 
 - `npm run start` - Start development build with watch mode
 - `npm run build` - Build production assets
+- `npm run plugin-zip` - Create distributable ZIP for WordPress.org
 - `npm run lint:js` - Lint JavaScript files
 - `npm run lint:css` - Lint CSS/SCSS files
+
+### Building for Distribution
+
+To create a plugin ZIP for WordPress.org submission or distribution:
+
+```bash
+# Build production assets and create ZIP
+npm run build && npm run plugin-zip
+```
+
+This creates `channel3-for-woocommerce.zip` in the project root, ready for:
+- WordPress.org plugin submission
+- Manual installation testing
+- Distribution to beta testers
+
+The ZIP includes only production-ready files (no `node_modules/`, `vendor/`, or dev tools).
 
 ### Local Development
 

@@ -39,7 +39,8 @@ if ( ! defined( 'CHANNEL3_VERSION' ) ) {
 	define( 'CHANNEL3_VERSION', '1.0.0' );
 }
 
-require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload_packages.php';
+// Autoload plugin classes (avoid requiring vendor/ at runtime so WP.org ZIP installs work).
+require_once plugin_dir_path( __FILE__ ) . '/includes/autoload.php';
 
 use Channel3\Admin\Setup;
 use Channel3\Admin\Welcome_Note;
@@ -321,5 +322,14 @@ function channel3_get_base_url() {
  * @return string
  */
 function channel3_get_dashboard_url() {
-	return channel3_get_base_url() . '/brands/xxxx/dashboard/integrations';
+	/**
+	 * Filter the Channel3 dashboard URL used for "Go to Channel3" links.
+	 *
+	 * Useful if your deployment needs a different path/tenant routing.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $url Default dashboard URL.
+	 */
+	return apply_filters( 'channel3_dashboard_url', channel3_get_base_url() . '/brands/xxxx/dashboard/integrations' );
 }
