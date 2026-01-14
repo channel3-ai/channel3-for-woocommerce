@@ -1,14 +1,15 @@
 {
-	"name": "extension/woo-extension",
-	"description": "WooCommerce plugin",
+	"name": "channel3/channel3-for-woocommerce",
+	"description": "Sync your WooCommerce product catalog to Channel3",
 	"autoload": {
 		"psr-4": {
-			"WooExtension\\": "includes/"
+			"Channel3\\": "includes/"
 		}
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9.0",
-		"automattic/jetpack-autoloader": "^2"
+		"automattic/jetpack-autoloader": "^2",
+		"php-stubs/wordpress-stubs": "^6.9"
 	},
 	"config": {
 		"allow-plugins": {

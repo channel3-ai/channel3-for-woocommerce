@@ -1,0 +1,11 @@
+*** Channel3 for WooCommerce Changelog ***
+
+2026-01-13 - version 1.0.0
+* Added - Initial release
+* Added - OAuth connection flow for Channel3
+* Added - Integration settings page under WooCommerce > Settings > Integrations
+* Added - Setup task for merchant onboarding in "Things to do next"
+* Added - Welcome note in admin inbox on activation
+* Added - Read-only REST API key generation for product catalog sync
+* Added - Privacy policy content for GDPR compliance
+* Added - Debug logging option using WC_Logger
