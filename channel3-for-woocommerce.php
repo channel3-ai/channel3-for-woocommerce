@@ -256,8 +256,6 @@ add_action( 'plugins_loaded', 'channel3_init', 10 );
  * @since 1.0.0
  */
 function channel3_init() {
-	load_plugin_textdomain( 'channel3-for-woocommerce', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
-
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'channel3_missing_wc_notice' );
 		return;
