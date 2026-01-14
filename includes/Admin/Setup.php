@@ -1,9 +1,16 @@
 <?php
+/**
+ * Admin Setup Class
+ *
+ * @package Channel3
+ */
 
-namespace WooExtension\Admin;
+namespace Channel3\Admin;
+
+defined( 'ABSPATH' ) || exit;
 
 /**
- * WooExtension Setup Class
+ * Channel3 Admin Setup Class
  */
 class Setup {
 	/**
@@ -29,17 +36,17 @@ class Setup {
 		}
 
 		$script_path       = '/build/index.js';
-		$script_asset_path = dirname( WOO_EXTENSION_MAIN_PLUGIN_FILE ) . '/build/index.asset.php';
+		$script_asset_path = dirname( CHANNEL3_PLUGIN_FILE ) . '/build/index.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
 		? require $script_asset_path
 		: array(
 			'dependencies' => array(),
-			'version'      => filemtime( dirname( WOO_EXTENSION_MAIN_PLUGIN_FILE ) . $script_path ),
+			'version'      => filemtime( dirname( CHANNEL3_PLUGIN_FILE ) . $script_path ),
 		);
-		$script_url        = plugins_url( $script_path, WOO_EXTENSION_MAIN_PLUGIN_FILE );
+		$script_url        = plugins_url( $script_path, CHANNEL3_PLUGIN_FILE );
 
 		wp_register_script(
-			'woo-extension',
+			'channel3-admin',
 			$script_url,
 			$script_asset['dependencies'],
 			$script_asset['version'],
@@ -47,15 +54,28 @@ class Setup {
 		);
 
 		wp_register_style(
-			'woo-extension',
-			plugins_url( '/build/index.css', WOO_EXTENSION_MAIN_PLUGIN_FILE ),
+			'channel3-admin',
+			plugins_url( '/build/index.css', CHANNEL3_PLUGIN_FILE ),
 			// Add any dependencies styles may have, such as wp-components.
-			array(),
-			filemtime( dirname( WOO_EXTENSION_MAIN_PLUGIN_FILE ) . '/build/index.css' )
+			array( 'wp-components' ),
+			filemtime( dirname( CHANNEL3_PLUGIN_FILE ) . '/build/index.css' )
 		);
 
-		wp_enqueue_script( 'woo-extension' );
-		wp_enqueue_style( 'woo-extension' );
+		// Pass connection data to JavaScript.
+		wp_localize_script(
+			'channel3-admin',
+			'channel3Data',
+			array(
+				'isConnected'    => channel3_is_connected(),
+				'connectionData' => channel3_get_connection_data(),
+				'settingsUrl'    => admin_url( 'admin.php?page=wc-settings&tab=integration&section=channel3' ),
+				'channel3Url'    => channel3_get_dashboard_url(),
+				'nonce'          => wp_create_nonce( 'channel3_admin' ),
+			)
+		);
+
+		wp_enqueue_script( 'channel3-admin' );
+		wp_enqueue_style( 'channel3-admin' );
 	}
 
 	/**
@@ -64,17 +84,16 @@ class Setup {
 	 * @since 1.0.0
 	 */
 	public function register_page() {
-
 		if ( ! function_exists( 'wc_admin_register_page' ) ) {
 			return;
 		}
 
 		wc_admin_register_page(
 			array(
-				'id'     => 'woo_extension-example-page',
-				'title'  => __( 'Woo Extension', 'woo_extension' ),
+				'id'     => 'channel3-settings',
+				'title'  => __( 'Channel3', 'channel3-for-woocommerce' ),
 				'parent' => 'woocommerce',
-				'path'   => '/woo-extension',
+				'path'   => '/channel3',
 			)
 		);
 	}

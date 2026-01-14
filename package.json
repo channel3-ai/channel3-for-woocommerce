@@ -1,7 +1,7 @@
 {
-	"name": "woo-extension",
-	"version": "0.1.0",
-	"author": "The WordPress Contributors",
+	"name": "channel3-for-woocommerce",
+	"version": "1.0.0",
+	"author": "Channel3",
 	"license": "GPL-3.0+",
 	"main": "build/index.js",
 	"scripts": {
@@ -17,8 +17,14 @@
 	},
 	"dependencies": {
 		"@woocommerce/components": "latest",
+		"@woocommerce/data": "latest",
+		"@wordpress/components": "latest",
+		"@wordpress/data": "latest",
+		"@wordpress/element": "latest",
 		"@wordpress/hooks": "latest",
-		"@wordpress/i18n": "latest"
+		"@wordpress/i18n": "latest",
+		"@wordpress/icons": "latest",
+		"@wordpress/plugins": "latest"
 	},
 	"devDependencies": {
 		"@woocommerce/dependency-extraction-webpack-plugin": "latest",

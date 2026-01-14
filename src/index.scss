@@ -1,3 +1,202 @@
-h1 {
-	background-color: gold;
+/**
+ * Channel3 for WooCommerce Admin Styles
+ */
+
+.channel3-page {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px 0;
+
+	.components-card {
+		margin-bottom: 20px;
+	}
+
+	.components-card-header {
+		h2, h3 {
+			margin: 0;
+			font-size: 16px;
+			font-weight: 600;
+		}
+	}
+}
+
+// Connection status styles
+.channel3-status {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 16px;
+	border-radius: 4px;
+	margin-bottom: 20px;
+
+	svg {
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	&__content {
+		flex: 1;
+
+		strong {
+			display: block;
+			font-size: 14px;
+			margin-bottom: 4px;
+		}
+
+		p {
+			margin: 0;
+			font-size: 13px;
+			color: #757575;
+		}
+	}
+
+	&__date {
+		font-size: 12px !important;
+	}
+
+	&--connected {
+		background: #edfaef;
+		border: 1px solid #00a32a;
+
+		svg {
+			fill: #00a32a;
+		}
+
+		strong {
+			color: #00450c;
+		}
+	}
+
+	&--disconnected {
+		background: #fcf9e8;
+		border: 1px solid #dba617;
+
+		svg {
+			fill: #dba617;
+		}
+
+		strong {
+			color: #614200;
+		}
+	}
+}
+
+// Description section
+.channel3-description {
+	margin-bottom: 20px;
+
+	p {
+		margin: 0;
+		color: #50575e;
+		line-height: 1.6;
+	}
+}
+
+// Action buttons
+.channel3-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: center;
+
+	.components-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+
+		svg {
+			width: 16px;
+			height: 16px;
+		}
+	}
+
+	.channel3-help-text {
+		width: 100%;
+		margin: 8px 0 0;
+		font-size: 13px;
+		color: #757575;
+	}
+}
+
+// Permissions section
+.channel3-permissions {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+	margin-bottom: 16px;
+
+	@media (max-width: 600px) {
+		grid-template-columns: 1fr;
+	}
+
+	&__section {
+		h4 {
+			margin: 0 0 12px;
+			font-size: 13px;
+			font-weight: 600;
+			color: #1d2327;
+		}
+
+		ul {
+			margin: 0;
+			padding-left: 20px;
+			list-style: disc;
+
+			li {
+				margin: 6px 0;
+				font-size: 13px;
+				color: #50575e;
+			}
+		}
+
+		&--no-access {
+			h4 {
+				color: #757575;
+			}
+
+			li {
+				color: #757575;
+			}
+		}
+	}
+}
+
+// Privacy link
+.channel3-privacy-link {
+	margin: 0;
+	padding-top: 12px;
+	border-top: 1px solid #e0e0e0;
+
+	a {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		font-size: 13px;
+		color: #2271b1;
+		text-decoration: none;
+
+		&:hover {
+			color: #135e96;
+			text-decoration: underline;
+		}
+
+		svg {
+			width: 14px;
+			height: 14px;
+		}
+	}
+}
+
+// Info card
+.channel3-info-card {
+	.components-card-header {
+		h3 {
+			font-size: 14px;
+		}
+	}
+}
+
+// Notice styles
+.components-notice {
+	margin-bottom: 20px;
 }
