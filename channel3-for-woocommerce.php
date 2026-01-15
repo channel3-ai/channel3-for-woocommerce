@@ -128,17 +128,81 @@ if ( ! class_exists( 'Channel3' ) ) :
 			// Register integration.
 			add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
 
-		// Register WC API callback handler.
-		add_action( 'woocommerce_api_channel3-connect', array( $this, 'handle_oauth_callback' ) );
+			// Register WC API callback handler.
+			add_action( 'woocommerce_api_channel3-connect', array( $this, 'handle_oauth_callback' ) );
 
-		// Register WC API disconnect webhook handler.
-		add_action( 'woocommerce_api_channel3-disconnect', array( $this, 'handle_disconnect_webhook' ) );
+			// Register WC API disconnect webhook handler.
+			add_action( 'woocommerce_api_channel3-disconnect', array( $this, 'handle_disconnect_webhook' ) );
 
 			// Register setup task.
 			add_action( 'init', array( $this, 'register_setup_task' ) );
 
 			// Add privacy policy content.
 			add_action( 'admin_init', array( $this, 'add_privacy_policy_content' ) );
+
+			// Allow WooCommerce REST API over HTTP in local development.
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				add_filter( 'determine_current_user', array( $this, 'authenticate_api_user' ), 20 );
+			}
+		}
+
+		/**
+		 * Authenticate API user for local development over HTTP.
+		 *
+		 * @param int|false $user_id User ID if already authenticated.
+		 * @return int|false
+		 */
+		public function authenticate_api_user( $user_id ) {
+			// Don't authenticate twice.
+			if ( ! empty( $user_id ) ) {
+				return $user_id;
+			}
+
+			// Only for WooCommerce REST API requests.
+			if ( empty( $_SERVER['REQUEST_URI'] ) || false === strpos( $_SERVER['REQUEST_URI'], '/wp-json/wc/' ) ) {
+				return $user_id;
+			}
+
+			// Get credentials from HTTP Basic Auth.
+			$consumer_key = '';
+			$consumer_secret = '';
+
+			if ( ! empty( $_SERVER['PHP_AUTH_USER'] ) ) {
+				$consumer_key = $_SERVER['PHP_AUTH_USER'];
+			}
+
+			if ( ! empty( $_SERVER['PHP_AUTH_PW'] ) ) {
+				$consumer_secret = $_SERVER['PHP_AUTH_PW'];
+			}
+
+			if ( empty( $consumer_key ) || empty( $consumer_secret ) ) {
+				return $user_id;
+			}
+
+			// Look up the API key in the database.
+			global $wpdb;
+			$consumer_key_hash = wc_api_hash( sanitize_text_field( $consumer_key ) );
+
+			$key = $wpdb->get_row(
+				$wpdb->prepare(
+					"SELECT key_id, user_id, permissions, consumer_secret
+					FROM {$wpdb->prefix}woocommerce_api_keys
+					WHERE consumer_key = %s",
+					$consumer_key_hash
+				)
+			);
+
+			if ( empty( $key ) ) {
+				return $user_id;
+			}
+
+			// Validate consumer secret.
+			if ( ! hash_equals( $key->consumer_secret, $consumer_secret ) ) {
+				return $user_id;
+			}
+
+			// Return the user ID associated with this API key.
+			return $key->user_id;
 		}
 
 		/**
