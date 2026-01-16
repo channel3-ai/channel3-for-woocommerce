@@ -44,17 +44,18 @@ class Connection_Handler {
 		// Get request parameters.
 		$callback_url = isset( $_GET['callback_url'] ) ? \esc_url_raw( \wp_unslash( $_GET['callback_url'] ) ) : '';
 		$store_id     = isset( $_GET['store_id'] ) ? \sanitize_text_field( \wp_unslash( $_GET['store_id'] ) ) : '';
+		$merchant_id  = isset( $_GET['merchant_id'] ) ? \sanitize_text_field( \wp_unslash( $_GET['merchant_id'] ) ) : '';
 		$signature    = isset( $_GET['signature'] ) ? \sanitize_text_field( \wp_unslash( $_GET['signature'] ) ) : '';
 		$timestamp    = isset( $_GET['timestamp'] ) ? \absint( \wp_unslash( $_GET['timestamp'] ) ) : 0;
 
 		// Check if this is a confirmation step.
 		if ( isset( $_GET['confirm'] ) && 'yes' === $_GET['confirm'] ) {
-			$this->process_authorization( $callback_url, $store_id );
+			$this->process_authorization( $callback_url, $store_id, $merchant_id );
 			return;
 		}
 
 		// Show authorization prompt.
-		$this->show_authorization_prompt( $callback_url, $store_id, $timestamp );
+		$this->show_authorization_prompt( $callback_url, $store_id, $merchant_id, $timestamp );
 	}
 
 	/**
@@ -120,9 +121,10 @@ class Connection_Handler {
 	 *
 	 * @param string $callback_url Callback URL.
 	 * @param string $store_id     Store ID from Channel3.
+	 * @param string $merchant_id  Merchant ID from Channel3.
 	 * @param int    $timestamp    Request timestamp.
 	 */
-	private function show_authorization_prompt( $callback_url, $store_id, $timestamp ) {
+	private function show_authorization_prompt( $callback_url, $store_id, $merchant_id, $timestamp ) {
 		// Build confirmation URL using query parameter format for WooCommerce API.
 		$confirm_url = \wp_nonce_url(
 			\add_query_arg(
@@ -130,6 +132,7 @@ class Connection_Handler {
 					'wc-api'       => 'channel3-connect',
 					'callback_url' => \rawurlencode( $callback_url ),
 					'store_id'     => $store_id,
+					'merchant_id'  => $merchant_id,
 					'timestamp'    => $timestamp,
 					'confirm'      => 'yes',
 				),
@@ -300,8 +303,9 @@ class Connection_Handler {
 	 *
 	 * @param string $callback_url Callback URL.
 	 * @param string $store_id     Store ID from Channel3.
+	 * @param string $merchant_id  Merchant ID from Channel3.
 	 */
-	private function process_authorization( $callback_url, $store_id ) {
+	private function process_authorization( $callback_url, $store_id, $merchant_id ) {
 		// Verify nonce.
 		if ( ! isset( $_GET['_wpnonce'] ) || ! \wp_verify_nonce( \sanitize_text_field( \wp_unslash( $_GET['_wpnonce'] ) ), 'channel3_connect' ) ) {
 			$this->send_error( \__( 'Security check failed.', 'channel3-for-woocommerce' ), 403 );
@@ -345,6 +349,7 @@ class Connection_Handler {
 				'store_url'       => \rawurlencode( \home_url() ),
 				'store_name'      => \rawurlencode( \get_bloginfo( 'name' ) ),
 				'store_id'        => $store_id,
+				'merchant_id'     => $merchant_id,
 			),
 			$callback_url
 		);
