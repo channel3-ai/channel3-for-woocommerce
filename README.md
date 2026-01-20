@@ -86,6 +86,20 @@ If you need to use a different backend URL, add this to your `wp-config.php`:
 define( 'CHANNEL3_BASE_URL', 'http://localhost:8000' );
 ```
 
+### Testing Webhooks Locally
+
+WooCommerce uses **Action Scheduler** to deliver webhooks asynchronously. In local development, these scheduled actions don't run automatically because WordPress cron only triggers on page visits.
+
+**Symptoms:** Webhooks are registered and active, but product changes don't trigger webhook deliveries.
+
+**Solution:** Manually run pending webhook actions:
+
+1. Go to **Tools → Scheduled Actions** in WordPress admin
+2. Look for pending `woocommerce_deliver_webhook_async` actions
+3. Select them and choose "Run" from the Bulk Actions dropdown
+
+**Note:** WooCommerce webhooks always send the **complete product object**, not just the changed fields. This is standard WooCommerce behavior.
+
 ## Changelog
 
 See [changelog.txt](changelog.txt) for a list of changes.
