@@ -92,6 +92,7 @@ class Connection_Handler {
 					'localhost',
 					'127.0.0.1',
 					'channel3.ngrok.dev',
+					'channel3-2.ngrok.dev',
 				)
 			);
 		}

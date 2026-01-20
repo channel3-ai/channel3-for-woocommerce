@@ -371,7 +371,7 @@ function channel3_get_base_url() {
 	$site_url = home_url();
 	if ( strpos( $site_url, 'localhost' ) !== false || strpos( $site_url, '127.0.0.1' ) !== false ) {
 		// Local development - use ngrok backend.
-		return 'https://channel3.ngrok.dev';
+		return 'https://channel3-2.ngrok.dev';
 	}
 
 	// Production environment.
@@ -393,5 +393,5 @@ function channel3_get_dashboard_url() {
 	 *
 	 * @param string $url Default dashboard URL.
 	 */
-	return apply_filters( 'channel3_dashboard_url', channel3_get_base_url() . '/brands/xxxx/dashboard/integrations' );
+	return apply_filters( 'channel3_dashboard_url', channel3_get_base_url() . '/brands/xxxx/integrations' );
 }
