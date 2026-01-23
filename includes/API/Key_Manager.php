@@ -49,6 +49,7 @@ class Key_Manager {
 		);
 
 		// Insert into woocommerce_api_keys table.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- WooCommerce API keys table, no WP API available.
 		$result = $wpdb->insert(
 			$wpdb->prefix . 'woocommerce_api_keys',
 			$data,
@@ -94,6 +95,7 @@ class Key_Manager {
 		}
 
 		// Delete the key from the database.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- WooCommerce API keys table, no WP API available.
 		$result = $wpdb->delete(
 			$wpdb->prefix . 'woocommerce_api_keys',
 			array( 'key_id' => $key_id ),
@@ -125,6 +127,7 @@ class Key_Manager {
 			return false;
 		}
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- WooCommerce API keys table, no WP API available.
 		$key = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT key_id FROM {$wpdb->prefix}woocommerce_api_keys WHERE key_id = %d",
@@ -149,6 +152,7 @@ class Key_Manager {
 			return null;
 		}
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- WooCommerce API keys table, no WP API available.
 		$key = $wpdb->get_row(
 			$wpdb->prepare(
 				"SELECT key_id, user_id, description, permissions, truncated_key, last_access 

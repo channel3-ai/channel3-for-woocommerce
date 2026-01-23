@@ -49,6 +49,7 @@ class Disconnect_Handler {
 	 * @return bool
 	 */
 	private function validate_request() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Webhook from external service, authenticated via webhook_secret.
 		// Verify the request is coming from Channel3.
 		// Check for required parameters.
 		if ( empty( $_GET['store_url'] ) || empty( $_GET['webhook_secret'] ) ) {
@@ -66,6 +67,7 @@ class Disconnect_Handler {
 		}
 
 		$requested_store_url = \esc_url_raw( \wp_unslash( $_GET['store_url'] ) );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		$actual_store_url    = \home_url();
 
 		// Normalize URLs for comparison (remove trailing slashes, protocol).

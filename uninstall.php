@@ -15,11 +15,12 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 global $wpdb;
 
 // Revoke and delete API keys.
-$key_id = get_option( 'channel3_api_key_id' );
-if ( $key_id ) {
+$channel3_key_id = get_option( 'channel3_api_key_id' );
+if ( $channel3_key_id ) {
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- WooCommerce API keys table, no WP API available.
 	$wpdb->delete(
 		$wpdb->prefix . 'woocommerce_api_keys',
-		array( 'key_id' => $key_id ),
+		array( 'key_id' => $channel3_key_id ),
 		array( '%d' )
 	);
 }
@@ -34,8 +35,8 @@ $channel3_options = array(
 	'woocommerce_channel3_settings',
 );
 
-foreach ( $channel3_options as $option ) {
-	delete_option( $option );
+foreach ( $channel3_options as $channel3_option ) {
+	delete_option( $channel3_option );
 }
 
 // Delete admin notes.
@@ -48,6 +49,6 @@ delete_transient( 'channel3_connection_check' );
 
 // Log uninstallation (if WooCommerce logger is available).
 if ( function_exists( 'wc_get_logger' ) ) {
-	$logger = wc_get_logger();
-	$logger->info( 'Channel3 for WooCommerce uninstalled and data cleaned up.', array( 'source' => 'channel3' ) );
+	$channel3_logger = wc_get_logger();
+	$channel3_logger->info( 'Channel3 for WooCommerce uninstalled and data cleaned up.', array( 'source' => 'channel3' ) );
 }

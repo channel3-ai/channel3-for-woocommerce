@@ -42,6 +42,7 @@ class Connection_Handler {
 		}
 
 		// Get request parameters.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- OAuth callback from external service, nonce verified in process_authorization.
 		$callback_url = isset( $_GET['callback_url'] ) ? \esc_url_raw( \wp_unslash( $_GET['callback_url'] ) ) : '';
 		$store_id     = isset( $_GET['store_id'] ) ? \sanitize_text_field( \wp_unslash( $_GET['store_id'] ) ) : '';
 		$merchant_id  = isset( $_GET['merchant_id'] ) ? \sanitize_text_field( \wp_unslash( $_GET['merchant_id'] ) ) : '';
@@ -50,6 +51,7 @@ class Connection_Handler {
 
 		// Check if this is a confirmation step.
 		if ( isset( $_GET['confirm'] ) && 'yes' === $_GET['confirm'] ) {
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
 			$this->process_authorization( $callback_url, $store_id, $merchant_id );
 			return;
 		}
@@ -64,6 +66,7 @@ class Connection_Handler {
 	 * @return bool
 	 */
 	private function validate_request() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- OAuth callback from external service, validating via allowed hosts and timestamp.
 		// Check required parameters.
 		if ( empty( $_GET['callback_url'] ) ) {
 			return false;
@@ -114,6 +117,7 @@ class Connection_Handler {
 				return false;
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		return true;
 	}
@@ -361,7 +365,9 @@ class Connection_Handler {
 			$callback_url
 		);
 
-		\wp_redirect( $success_url );
+		// Add Channel3 hosts to allowed redirect hosts.
+		\add_filter( 'allowed_redirect_hosts', array( $this, 'add_allowed_redirect_hosts' ) );
+		\wp_safe_redirect( $success_url );
 		exit;
 	}
 
@@ -378,8 +384,38 @@ class Connection_Handler {
 		\wp_die(
 			\esc_html( $message ),
 			\esc_html__( 'Authorization Error', 'channel3-for-woocommerce' ),
-			array( 'response' => $code )
+			array( 'response' => \absint( $code ) )
 		);
+	}
+
+	/**
+	 * Add Channel3 hosts to allowed redirect hosts.
+	 *
+	 * @param array $hosts Allowed redirect hosts.
+	 * @return array
+	 */
+	public function add_allowed_redirect_hosts( $hosts ) {
+		$allowed_hosts = array(
+			'api.trychannel3.com',
+			'trychannel3.com',
+			'www.trychannel3.com',
+		);
+
+		// Allow local development hosts only if in debug mode.
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$allowed_hosts = array_merge(
+				$allowed_hosts,
+				array(
+					'localhost',
+					'127.0.0.1',
+					'channel3.ngrok.dev',
+					'channel3-2.ngrok.dev',
+					'channel3-evan.ngrok.dev',
+				)
+			);
+		}
+
+		return array_merge( $hosts, $allowed_hosts );
 	}
 
 	/**

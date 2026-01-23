@@ -165,7 +165,8 @@ if ( ! class_exists( 'Channel3' ) ) :
 			}
 
 			// Only for WooCommerce REST API requests.
-			if ( empty( $_SERVER['REQUEST_URI'] ) || false === strpos( $_SERVER['REQUEST_URI'], '/wp-json/wc/' ) ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Only checking for substring presence.
+			if ( empty( $_SERVER['REQUEST_URI'] ) || false === strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), '/wp-json/wc/' ) ) {
 				return $user_id;
 			}
 
@@ -174,11 +175,11 @@ if ( ! class_exists( 'Channel3' ) ) :
 			$consumer_secret = '';
 
 			if ( ! empty( $_SERVER['PHP_AUTH_USER'] ) ) {
-				$consumer_key = $_SERVER['PHP_AUTH_USER'];
+				$consumer_key = sanitize_text_field( wp_unslash( $_SERVER['PHP_AUTH_USER'] ) );
 			}
 
 			if ( ! empty( $_SERVER['PHP_AUTH_PW'] ) ) {
-				$consumer_secret = $_SERVER['PHP_AUTH_PW'];
+				$consumer_secret = sanitize_text_field( wp_unslash( $_SERVER['PHP_AUTH_PW'] ) );
 			}
 
 			if ( empty( $consumer_key ) || empty( $consumer_secret ) ) {
@@ -187,8 +188,9 @@ if ( ! class_exists( 'Channel3' ) ) :
 
 			// Look up the API key in the database.
 			global $wpdb;
-			$consumer_key_hash = wc_api_hash( sanitize_text_field( $consumer_key ) );
+			$consumer_key_hash = wc_api_hash( $consumer_key );
 
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- WooCommerce API keys table, no WP API available.
 			$key = $wpdb->get_row(
 				$wpdb->prepare(
 					"SELECT key_id, user_id, permissions, consumer_secret
