@@ -93,6 +93,7 @@ class Connection_Handler {
 					'127.0.0.1',
 					'channel3.ngrok.dev',
 					'channel3-2.ngrok.dev',
+					'channel3-evan.ngrok.dev',
 				)
 			);
 		}
@@ -336,6 +337,7 @@ class Connection_Handler {
 		\update_option( 'channel3_connected_at', \current_time( 'mysql' ) );
 		\update_option( 'channel3_api_key_id', $api_keys['key_id'] );
 		\update_option( 'channel3_store_id', $store_id );
+		\update_option( 'channel3_merchant_id', $merchant_id );
 		\update_option( 'channel3_webhook_secret', $webhook_secret );
 
 		$this->log( 'Store successfully connected to Channel3.' );

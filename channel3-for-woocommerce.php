@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Channel3 for WooCommerce
- * Plugin URI: https://trychannel3.com/integrations/woocommerce
+ * Plugin URI: https://trychannel3.com/
  * Description: Sync your WooCommerce product catalog to Channel3.
  * Version: 1.0.0
  * Author: Channel3
@@ -44,6 +44,7 @@ require_once plugin_dir_path( __FILE__ ) . '/includes/autoload.php';
 
 use Channel3\Admin\Setup;
 use Channel3\Admin\Welcome_Note;
+use Channel3\Tracking\Tracking_Script;
 
 // phpcs:disable WordPress.Files.FileName
 
@@ -139,6 +140,11 @@ if ( ! class_exists( 'Channel3' ) ) :
 
 			// Add privacy policy content.
 			add_action( 'admin_init', array( $this, 'add_privacy_policy_content' ) );
+
+			// Initialize storefront tracking (frontend only).
+			if ( class_exists( 'Channel3\Tracking\Tracking_Script' ) ) {
+				Tracking_Script::init();
+			}
 
 			// Allow WooCommerce REST API over HTTP in local development.
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
@@ -371,7 +377,7 @@ function channel3_get_base_url() {
 	$site_url = home_url();
 	if ( strpos( $site_url, 'localhost' ) !== false || strpos( $site_url, '127.0.0.1' ) !== false ) {
 		// Local development - use ngrok backend.
-		return 'https://channel3-2.ngrok.dev';
+		return 'https://channel3-evan.ngrok.dev';
 	}
 
 	// Production environment.
@@ -393,5 +399,5 @@ function channel3_get_dashboard_url() {
 	 *
 	 * @param string $url Default dashboard URL.
 	 */
-	return apply_filters( 'channel3_dashboard_url', channel3_get_base_url() . '/brands/xxxx/integrations' );
+	return apply_filters( 'channel3_dashboard_url', channel3_get_base_url() . '/brands/xxxx/ingest' );
 }
