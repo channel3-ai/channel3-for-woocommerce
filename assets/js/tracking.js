@@ -65,7 +65,8 @@
 			clientId: getClientId(),
 			accountId: config.accountId,
 			productId: config.productId || null,
-			sku: config.productSku || null
+			sku: config.productSku || null,
+			currency: config.currency || null
 		};
 
 		fetch( config.endpoint, {

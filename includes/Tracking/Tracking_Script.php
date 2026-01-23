@@ -72,6 +72,7 @@ class Tracking_Script {
 			'endpoint'   => self::get_pixel_endpoint(),
 			'productId'  => (string) $product->get_id(),
 			'productSku' => $product->get_sku(),
+			'currency'   => function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : null,
 		);
 
 		// Pass configuration to JavaScript.

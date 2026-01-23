@@ -342,6 +342,9 @@ class Connection_Handler {
 
 		$this->log( 'Store successfully connected to Channel3.' );
 
+		// Get store currency.
+		$currency = function_exists( 'get_woocommerce_currency' ) ? \get_woocommerce_currency() : '';
+
 		// Build success redirect URL with credentials and webhook secret.
 		$success_url = \add_query_arg(
 			array(
@@ -353,6 +356,7 @@ class Connection_Handler {
 				'store_name'      => \rawurlencode( \get_bloginfo( 'name' ) ),
 				'store_id'        => $store_id,
 				'merchant_id'     => $merchant_id,
+				'currency'        => $currency,
 			),
 			$callback_url
 		);
