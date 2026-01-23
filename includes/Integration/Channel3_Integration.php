@@ -179,6 +179,7 @@ class Channel3_Integration extends \WC_Integration {
 		delete_option( 'channel3_connected_at' );
 		delete_option( 'channel3_api_key_id' );
 		delete_option( 'channel3_store_id' );
+		delete_option( 'channel3_merchant_id' );
 		delete_option( 'channel3_webhook_secret' );
 
 		// Log disconnection.
