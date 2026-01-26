@@ -34,6 +34,19 @@ Privacy policy: https://trychannel3.com/privacy
 
 No. The integration is designed for read-only access to product catalog data.
 
+== Development ==
+
+The source code for this plugin is available on GitHub:
+https://github.com/channel3-ai/channel3-for-woocommerce
+
+= Building from Source =
+
+1. Clone the repository
+2. Run `npm install` to install dependencies
+3. Run `npm run build` to compile assets
+
+The `src/` directory contains the uncompiled JavaScript and SCSS source files.
+
 == Changelog ==
 
 = 1.0.0 =

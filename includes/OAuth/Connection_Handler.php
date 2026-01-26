@@ -87,18 +87,10 @@ class Connection_Handler {
 			'www.trychannel3.com',
 		);
 
-		// Allow local development hosts only if in debug mode.
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$allowed_hosts = array_merge(
-				$allowed_hosts,
-				array(
-					'localhost',
-					'127.0.0.1',
-					'channel3.ngrok.dev',
-					'channel3-2.ngrok.dev',
-					'channel3-evan.ngrok.dev',
-				)
-			);
+		// Allow additional development host via constant.
+		// Define in wp-config.php: define( 'CHANNEL3_DEV_HOST', 'your-ngrok.ngrok.dev' );
+		if ( defined( 'CHANNEL3_DEV_HOST' ) && CHANNEL3_DEV_HOST ) {
+			$allowed_hosts[] = CHANNEL3_DEV_HOST;
 		}
 
 		// Allow filtering for development/staging environments.
@@ -401,18 +393,9 @@ class Connection_Handler {
 			'www.trychannel3.com',
 		);
 
-		// Allow local development hosts only if in debug mode.
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$allowed_hosts = array_merge(
-				$allowed_hosts,
-				array(
-					'localhost',
-					'127.0.0.1',
-					'channel3.ngrok.dev',
-					'channel3-2.ngrok.dev',
-					'channel3-evan.ngrok.dev',
-				)
-			);
+		// Allow additional development host via constant.
+		if ( defined( 'CHANNEL3_DEV_HOST' ) && CHANNEL3_DEV_HOST ) {
+			$allowed_hosts[] = CHANNEL3_DEV_HOST;
 		}
 
 		return array_merge( $hosts, $allowed_hosts );

@@ -78,13 +78,28 @@ The ZIP includes only production-ready files (no `node_modules/`, `vendor/`, or 
 
 ### Local Development
 
-The plugin automatically detects when you're running on `localhost` or `127.0.0.1` and points to `https://channel3.ngrok.dev` for the Channel3 backend.
+To develop against a local or ngrok backend, create a `.wp-env.override.json` file:
 
-If you need to use a different backend URL, add this to your `wp-config.php`:
-
-```php
-define( 'CHANNEL3_BASE_URL', 'http://localhost:8000' );
+```json
+{
+  "config": {
+    "CHANNEL3_BASE_URL": "https://your-ngrok-url.ngrok.dev",
+    "CHANNEL3_DEV_HOST": "your-ngrok-url.ngrok.dev"
+  }
+}
 ```
+
+Then restart wp-env:
+
+```bash
+npm run wp-env stop && npm run wp-env start
+```
+
+**Important:** After starting wp-env, you must enable pretty permalinks for the WooCommerce REST API to work:
+
+1. Go to **Settings → Permalinks** in WordPress admin
+2. Select **"Post name"** (or any option other than "Plain")
+3. Click **Save Changes**
 
 ### Testing Webhooks Locally
 

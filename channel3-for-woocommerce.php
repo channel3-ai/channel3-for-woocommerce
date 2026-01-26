@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Channel3 for WooCommerce
- * Plugin URI: https://trychannel3.com/
+ * Plugin URI: https://github.com/channel3-ai/channel3-for-woocommerce
  * Description: Sync your WooCommerce product catalog to Channel3.
  * Version: 1.0.0
  * Author: Channel3
@@ -361,25 +361,15 @@ function channel3_get_connection_data() {
 /**
  * Get the Channel3 base URL.
  *
- * Auto-detects local development environment or uses CHANNEL3_BASE_URL constant if defined.
- *
- * For local development:
- * - If the site is running on localhost/127.0.0.1, uses https://channel3.ngrok.dev
- * - You can override by defining CHANNEL3_BASE_URL constant in wp-config.php
+ * For local development, define CHANNEL3_BASE_URL in wp-config.php:
+ * define( 'CHANNEL3_BASE_URL', 'https://your-ngrok-url.ngrok.dev' );
  *
  * @return string
  */
 function channel3_get_base_url() {
-	// Allow override via constant (highest priority).
+	// Allow override via constant for local development.
 	if ( defined( 'CHANNEL3_BASE_URL' ) ) {
 		return CHANNEL3_BASE_URL;
-	}
-
-	// Auto-detect local development environment.
-	$site_url = home_url();
-	if ( strpos( $site_url, 'localhost' ) !== false || strpos( $site_url, '127.0.0.1' ) !== false ) {
-		// Local development - use ngrok backend.
-		return 'https://channel3-evan.ngrok.dev';
 	}
 
 	// Production environment.
@@ -389,9 +379,23 @@ function channel3_get_base_url() {
 /**
  * Get the Channel3 dashboard URL for integrations.
  *
+ * If connected, returns the merchant-specific integrations page.
+ * Otherwise, returns the generic dashboard URL.
+ *
  * @return string
  */
 function channel3_get_dashboard_url() {
+	$base_url    = channel3_get_base_url();
+	$merchant_id = get_option( 'channel3_merchant_id', '' );
+
+	// If connected with a merchant ID, link directly to integrations page.
+	if ( channel3_is_connected() && ! empty( $merchant_id ) ) {
+		$url = $base_url . '/brands/' . $merchant_id . '/integrations';
+	} else {
+		// Not connected - link to generic dashboard.
+		$url = $base_url . '/dashboard';
+	}
+
 	/**
 	 * Filter the Channel3 dashboard URL used for "Go to Channel3" links.
 	 *
@@ -401,5 +405,5 @@ function channel3_get_dashboard_url() {
 	 *
 	 * @param string $url Default dashboard URL.
 	 */
-	return apply_filters( 'channel3_dashboard_url', channel3_get_base_url() . '/brands/xxxx/ingest' );
+	return apply_filters( 'channel3_dashboard_url', $url );
 }

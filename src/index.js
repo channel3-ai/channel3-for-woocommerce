@@ -18,9 +18,9 @@ import './index.scss';
  */
 /**
  * Channel3 base URL - can be overridden via wp_localize_script.
- * Default points to production integrations page.
+ * Default points to production dashboard.
  */
-const CHANNEL3_DEFAULT_URL = 'https://trychannel3.com/brands/xxxx/integrations';
+const CHANNEL3_DEFAULT_URL = 'https://trychannel3.com/dashboard';
 
 const getConnectionData = () => {
 	return window.channel3Data || {

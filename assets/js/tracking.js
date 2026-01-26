@@ -2,13 +2,13 @@
  * Channel3 Tracking Script for WooCommerce
  *
  * Sends page view events to Channel3 for analytics tracking.
- * Configuration is passed via wp_localize_script as c3TrackingConfig.
+ * Configuration is passed via wp_localize_script as channel3TrackingConfig.
  */
 (function() {
 	'use strict';
 
-	var config = window.c3TrackingConfig || {};
-	var CLIENT_ID_KEY = 'c3_client_id';
+	var config = window.channel3TrackingConfig || {};
+	var CLIENT_ID_KEY = 'channel3_client_id';
 	var pageSent = false;
 
 	/**

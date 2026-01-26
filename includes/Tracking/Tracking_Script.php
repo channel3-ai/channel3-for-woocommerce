@@ -76,7 +76,7 @@ class Tracking_Script {
 		);
 
 		// Pass configuration to JavaScript.
-		wp_localize_script( 'channel3-tracking', 'c3TrackingConfig', $config );
+		wp_localize_script( 'channel3-tracking', 'channel3TrackingConfig', $config );
 	}
 
 	/**
