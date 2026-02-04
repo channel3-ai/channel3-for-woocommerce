@@ -42,7 +42,7 @@ class Key_Manager {
 		$data = array(
 			'user_id'         => $user_id,
 			'description'     => \__( 'Channel3 - Product Catalog Sync', 'channel3-for-woocommerce' ),
-			'permissions'     => 'read', // Read-only access.
+			'permissions'     => 'read_write', // Read/write access needed for webhook registration.
 			'consumer_key'    => \wc_api_hash( $consumer_key ),
 			'consumer_secret' => $consumer_secret,
 			'truncated_key'   => substr( $consumer_key, -7 ),
@@ -76,7 +76,7 @@ class Key_Manager {
 			'key_id'          => $key_id,
 			'consumer_key'    => $consumer_key,
 			'consumer_secret' => $consumer_secret,
-			'permissions'     => 'read',
+			'permissions'     => 'read_write',
 		);
 	}
 

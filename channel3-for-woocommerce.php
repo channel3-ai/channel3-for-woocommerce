@@ -46,6 +46,17 @@ use Channel3\Admin\Setup;
 use Channel3\Admin\Welcome_Note;
 use Channel3\Tracking\Tracking_Script;
 
+// Declare compatibility with WooCommerce features (HPOS, Cart/Checkout Blocks).
+add_action(
+	'before_woocommerce_init',
+	function () {
+		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
+		}
+	}
+);
+
 // phpcs:disable WordPress.Files.FileName
 
 /**

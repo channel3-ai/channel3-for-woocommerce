@@ -16,8 +16,6 @@ Channel3 for WooCommerce lets merchants connect their WooCommerce store to Chann
 
 = External service =
 
-This plugin connects to the Channel3 service (`trychannel3.com` / `api.trychannel3.com`) to complete authorization and to keep connection status in sync.
-
 When connected, Channel3 has read-only access to product catalog data (including product names, descriptions, prices, inventory, images, and categories). No customer personal data is shared by this plugin as part of the integration.
 
 Privacy policy: https://trychannel3.com/privacy
@@ -25,8 +23,7 @@ Privacy policy: https://trychannel3.com/privacy
 == Installation ==
 
 1. Install and activate the plugin.
-2. Go to **WooCommerce → Settings → Integrations → Channel3**.
-3. In your Channel3 dashboard, choose **Connect WooCommerce Store** and follow the prompts.
+2. In your Channel3 dashboard, choose **Connect WooCommerce Store** and follow the prompts.
 
 == Frequently Asked Questions ==
 
