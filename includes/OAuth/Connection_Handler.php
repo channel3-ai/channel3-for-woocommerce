@@ -83,6 +83,7 @@ class Connection_Handler {
 		// Allow Channel3 production.
 		$allowed_hosts = array(
 			'internal.trychannel3.com',
+            'integrations.trychannel3.com',
 		);
 
 		// Allow additional development host via constant.
@@ -387,6 +388,7 @@ class Connection_Handler {
 	public function add_allowed_redirect_hosts( $hosts ) {
 		$allowed_hosts = array(
 			'internal.trychannel3.com',
+            'integrations.trychannel3.com',
 		);
 
 		// Allow additional development host via constant.
