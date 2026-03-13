@@ -4,6 +4,17 @@
 	"author": "Channel3",
 	"license": "GPL-3.0+",
 	"main": "build/index.js",
+	"files": [
+		"assets/**",
+		"build/**",
+		"includes/**",
+		"languages/**",
+		"src/**",
+		"channel3-for-woocommerce.php",
+		"changelog.txt",
+		"readme.txt",
+		"uninstall.php"
+	],
 	"scripts": {
 		"build": "wp-scripts build --blocks-manifest",
 		"format": "wp-scripts format",

@@ -35,31 +35,38 @@ class Setup {
 			return;
 		}
 
-		$script_path       = '/build/index.js';
-		$script_asset_path = dirname( CHANNEL3_PLUGIN_FILE ) . '/build/index.asset.php';
+		$plugin_dir  = dirname( CHANNEL3_PLUGIN_FILE );
+		$script_path = '/build/index.js';
+		$style_path  = '/build/index.css';
+
+		if ( ! file_exists( $plugin_dir . $script_path ) ) {
+			return;
+		}
+
+		$script_asset_path = $plugin_dir . '/build/index.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
 		? require $script_asset_path
 		: array(
 			'dependencies' => array(),
-			'version'      => filemtime( dirname( CHANNEL3_PLUGIN_FILE ) . $script_path ),
+			'version'      => filemtime( $plugin_dir . $script_path ),
 		);
-		$script_url        = plugins_url( $script_path, CHANNEL3_PLUGIN_FILE );
 
 		wp_register_script(
 			'channel3-admin',
-			$script_url,
+			plugins_url( $script_path, CHANNEL3_PLUGIN_FILE ),
 			$script_asset['dependencies'],
 			$script_asset['version'],
 			true
 		);
 
-		wp_register_style(
-			'channel3-admin',
-			plugins_url( '/build/index.css', CHANNEL3_PLUGIN_FILE ),
-			// Add any dependencies styles may have, such as wp-components.
-			array( 'wp-components' ),
-			filemtime( dirname( CHANNEL3_PLUGIN_FILE ) . '/build/index.css' )
-		);
+		if ( file_exists( $plugin_dir . $style_path ) ) {
+			wp_register_style(
+				'channel3-admin',
+				plugins_url( $style_path, CHANNEL3_PLUGIN_FILE ),
+				array( 'wp-components' ),
+				filemtime( $plugin_dir . $style_path )
+			);
+		}
 
 		// Pass connection data to JavaScript.
 		wp_localize_script(
