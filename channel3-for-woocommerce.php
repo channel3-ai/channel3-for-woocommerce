@@ -3,7 +3,7 @@
  * Plugin Name: Channel3 for WooCommerce
  * Plugin URI: https://github.com/channel3-ai/channel3-for-woocommerce
  * Description: Sync your WooCommerce product catalog to Channel3.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Channel3
  * Author URI: https://trychannel3.com
  * Developer: Channel3
@@ -36,7 +36,7 @@ if ( ! defined( 'CHANNEL3_PLUGIN_URL' ) ) {
 }
 
 if ( ! defined( 'CHANNEL3_VERSION' ) ) {
-	define( 'CHANNEL3_VERSION', '1.0.0' );
+	define( 'CHANNEL3_VERSION', '1.0.1' );
 }
 
 // Autoload plugin classes (avoid requiring vendor/ at runtime so WP.org ZIP installs work).

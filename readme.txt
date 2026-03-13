@@ -4,7 +4,7 @@ Tags: woocommerce, integration, catalog, products, sync
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,6 +32,10 @@ Privacy policy: https://trychannel3.com/privacy
 No. The integration is designed for read-only access to product catalog data.
 
 == Changelog ==
+
+= 1.0.1 =
+* Add checkout tracking.
+* Allow integrations.trychannel3.com domain.
 
 = 1.0.0 =
 * Initial release.
