@@ -100,8 +100,12 @@ class Connection_Handler {
 			return false;
 		}
 
-		// Validate timestamp if provided (must be within 5 minutes).
-		if ( isset( $_GET['timestamp'] ) ) {
+		$is_confirmation = isset( $_GET['confirm'] ) && 'yes' === $_GET['confirm'];
+
+		// Validate timestamp on initial requests only (not confirmations, which
+		// are protected by a WordPress nonce instead). The user may take several
+		// minutes to log in and review the authorization prompt.
+		if ( ! $is_confirmation && isset( $_GET['timestamp'] ) ) {
 			$timestamp = \absint( \wp_unslash( $_GET['timestamp'] ) );
 			if ( \abs( time() - $timestamp ) > 300 ) {
 				$this->log( 'Request timestamp expired.', 'warning' );
@@ -123,6 +127,9 @@ class Connection_Handler {
 	 */
 	private function show_authorization_prompt( $callback_url, $store_id, $merchant_id, $timestamp ) {
 		// Build confirmation URL using query parameter format for WooCommerce API.
+		// Omit timestamp — the WordPress nonce secures the confirmation step,
+		// and re-validating the original timestamp would fail if the user spent
+		// time logging in or reviewing the authorization prompt.
 		$confirm_url = \wp_nonce_url(
 			\add_query_arg(
 				array(
@@ -130,7 +137,6 @@ class Connection_Handler {
 					'callback_url' => \rawurlencode( $callback_url ),
 					'store_id'     => $store_id,
 					'merchant_id'  => $merchant_id,
-					'timestamp'    => $timestamp,
 					'confirm'      => 'yes',
 				),
 				\home_url( '/' )
