@@ -1,47 +1,57 @@
 {
-	"name": "channel3-for-woocommerce",
-	"version": "1.0.0",
-	"author": "Channel3",
-	"license": "GPL-3.0+",
-	"main": "build/index.js",
-	"files": [
-		"assets/**",
-		"build/**",
-		"includes/**",
-		"languages/**",
-		"src/**",
-		"channel3-for-woocommerce.php",
-		"changelog.txt",
-		"readme.txt",
-		"uninstall.php"
-	],
-	"scripts": {
-		"build": "wp-scripts build --blocks-manifest",
-		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start --blocks-manifest",
-		"wp-env": "wp-env",
-		"postinstall": "rm -f src/block.json && composer install"
-	},
-	"dependencies": {
-		"@woocommerce/components": "latest",
-		"@woocommerce/data": "latest",
-		"@wordpress/components": "latest",
-		"@wordpress/data": "latest",
-		"@wordpress/element": "latest",
-		"@wordpress/hooks": "latest",
-		"@wordpress/i18n": "latest",
-		"@wordpress/icons": "latest",
-		"@wordpress/plugins": "latest"
-	},
-	"devDependencies": {
-		"@woocommerce/dependency-extraction-webpack-plugin": "latest",
-		"@woocommerce/eslint-plugin": "latest",
-		"@wordpress/env": "^10.37.0",
-		"@wordpress/prettier-config": "latest",
-		"@wordpress/scripts": "^31.2.0"
-	}
+  "name": "channel3-for-woocommerce",
+  "version": "1.0.0",
+  "author": "Channel3",
+  "license": "GPL-3.0+",
+  "main": "build/index.js",
+  "files": [
+    "assets/**",
+    "build/**",
+    "includes/**",
+    "languages/**",
+    "src/**",
+    "channel3-for-woocommerce.php",
+    "changelog.txt",
+    "readme.txt",
+    "uninstall.php"
+  ],
+  "scripts": {
+    "build": "wp-scripts build --blocks-manifest",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start --blocks-manifest",
+    "wp-env": "wp-env",
+    "postinstall": "rm -f src/block.json && composer install"
+  },
+  "dependencies": {
+    "@woocommerce/components": "latest",
+    "@woocommerce/data": "latest",
+    "@wordpress/components": "latest",
+    "@wordpress/data": "latest",
+    "@wordpress/element": "latest",
+    "@wordpress/hooks": "latest",
+    "@wordpress/i18n": "latest",
+    "@wordpress/icons": "latest",
+    "@wordpress/plugins": "latest"
+  },
+  "devDependencies": {
+    "@woocommerce/dependency-extraction-webpack-plugin": "latest",
+    "@woocommerce/eslint-plugin": "latest",
+    "@wordpress/env": "^10.37.0",
+    "@wordpress/prettier-config": "latest",
+    "@wordpress/scripts": "^31.2.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "locutus": ">=2.0.15",
+      "minimatch": ">=9.0.5",
+      "react-router": ">=6.28.2",
+      "serialize-javascript": ">=6.0.2",
+      "showdown": ">=2.1.0",
+      "webpack-dev-server": ">=5.2.0"
+    }
+  }
 }
