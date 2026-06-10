@@ -3,7 +3,7 @@
  * Plugin Name: Channel3 for WooCommerce
  * Plugin URI: https://github.com/channel3-ai/channel3-for-woocommerce
  * Description: Sync your WooCommerce product catalog to Channel3.
- * Version: 1.0.2
+ * Version: 1.0.4
  * Author: Channel3
  * Author URI: https://trychannel3.com
  * Developer: Channel3
@@ -36,7 +36,7 @@ if ( ! defined( 'CHANNEL3_PLUGIN_URL' ) ) {
 }
 
 if ( ! defined( 'CHANNEL3_VERSION' ) ) {
-	define( 'CHANNEL3_VERSION', '1.0.2' );
+	define( 'CHANNEL3_VERSION', '1.0.4' );
 }
 
 // Autoload plugin classes (avoid requiring vendor/ at runtime so WP.org ZIP installs work).
@@ -146,6 +146,9 @@ if ( ! class_exists( 'Channel3' ) ) :
 			// Register WC API disconnect webhook handler.
 			add_action( 'woocommerce_api_channel3-disconnect', array( $this, 'handle_disconnect_webhook' ) );
 
+			// Register WC API status endpoint (lets Channel3 detect the plugin).
+			add_action( 'woocommerce_api_channel3-status', array( $this, 'handle_status_request' ) );
+
 			// Register setup task.
 			add_action( 'init', array( $this, 'register_setup_task' ) );
 
@@ -245,6 +248,24 @@ if ( ! class_exists( 'Channel3' ) ) :
 			$handler = new \Channel3\OAuth\Connection_Handler();
 			$handler->handle_request();
 		}
+	}
+
+	/**
+	 * Handle status requests from Channel3.
+	 *
+	 * Unauthenticated, read-only endpoint that lets the Channel3 connect flow
+	 * deterministically detect that this plugin is installed and active before
+	 * redirecting the merchant into the authorization flow. Exposes only the
+	 * plugin identity, version, and whether a connection exists.
+	 */
+	public function handle_status_request() {
+		\wp_send_json(
+			array(
+				'plugin'    => 'channel3-for-woocommerce',
+				'version'   => CHANNEL3_VERSION,
+				'connected' => channel3_is_connected(),
+			)
+		);
 	}
 
 	/**
