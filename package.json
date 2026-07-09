@@ -46,6 +46,7 @@
   },
   "pnpm": {
     "overrides": {
+      "@babel/runtime": ">=7.26.10",
       "d3-color": ">=3.1.0",
       "locutus": ">=2.0.15",
       "minimatch": ">=9.0.5",
