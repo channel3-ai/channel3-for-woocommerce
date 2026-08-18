@@ -5,7 +5,7 @@ overrides:
   linkify-it: '>=5.0.2'
   locutus: '>=2.0.39'
   markdown-it: '>=14.2.0'
-  minimatch: '>=9.0.5'
+  minimatch: '>=9.0.9'
   react-router: '>=6.28.2'
   serialize-javascript: '>=7.1.0'
   showdown: '>=2.1.0'
