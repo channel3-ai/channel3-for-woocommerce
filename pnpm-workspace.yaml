@@ -6,7 +6,7 @@ overrides:
   locutus: '>=2.0.39'
   markdown-it: '>=14.2.0'
   minimatch: '>=9.0.9'
-  react-router: '>=6.28.2'
+  react-router: '>=6.30.6'
   serialize-javascript: '>=7.1.0'
   showdown: '>=2.1.0'
   webpack-dev-server: '>=5.2.6'
