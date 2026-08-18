@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "Channel3",
   "license": "GPL-3.0+",
+  "packageManager": "pnpm@10.34.5",
   "main": "build/index.js",
   "files": [
     "assets/**",
@@ -41,20 +42,5 @@
     "@wordpress/env": "^11.0.0",
     "@wordpress/prettier-config": "latest",
     "@wordpress/scripts": "^32.0.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@babel/runtime": ">=7.26.10",
-      "adm-zip": ">=0.6.0",
-      "d3-color": ">=3.1.0",
-      "linkify-it": ">=5.0.2",
-      "locutus": ">=2.0.15",
-      "markdown-it": ">=14.2.0",
-      "minimatch": ">=9.0.5",
-      "react-router": ">=6.28.2",
-      "serialize-javascript": ">=7.0.3",
-      "showdown": ">=2.1.0",
-      "webpack-dev-server": ">=5.2.0"
-    }
   }
 }
