@@ -9,4 +9,4 @@ overrides:
   react-router: '>=6.28.2'
   serialize-javascript: '>=7.1.0'
   showdown: '>=2.1.0'
-  webpack-dev-server: '>=5.2.0'
+  webpack-dev-server: '>=5.2.6'
