@@ -1,11 +1,9 @@
-# pnpm 11 no longer reads the `pnpm` field from package.json, so security
-# overrides must live here. See the note in package.json.
 overrides:
   '@babel/runtime': '>=7.26.10'
   adm-zip: '>=0.6.0'
   d3-color: '>=3.1.0'
   linkify-it: '>=5.0.2'
-  locutus: '>=2.0.15'
+  locutus: '>=2.0.39'
   markdown-it: '>=14.2.0'
   minimatch: '>=9.0.5'
   react-router: '>=6.28.2'
