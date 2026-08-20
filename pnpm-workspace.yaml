@@ -4,7 +4,7 @@ overrides:
   d3-color: '>=3.1.0'
   linkify-it: '>=5.0.2'
   locutus: '>=2.0.39'
-  markdown-it: '>=14.2.0'
+  markdown-it: '>=14.3.0'
   minimatch: '>=9.0.9'
   react-router: '>=6.30.6'
   serialize-javascript: '>=7.1.0'
