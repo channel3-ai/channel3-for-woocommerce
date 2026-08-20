@@ -8,7 +8,7 @@ overrides:
   '@babel/runtime': '>=7.26.10'
   adm-zip: '>=0.6.0'
   d3-color: '>=3.1.0'
-  linkify-it: '>=5.0.2'
+  linkify-it: '>=6.1.0'
   locutus: '>=2.0.39'
   markdown-it: '>=14.2.0'
   minimatch: '>=9.0.9'
