@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@babel/runtime': '>=7.26.10'
+  '@babel/runtime': '>=7.29.7'
   adm-zip: '>=0.6.0'
   d3-color: '>=3.1.0'
   linkify-it: '>=5.0.2'
