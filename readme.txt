@@ -4,7 +4,7 @@ Tags: woocommerce, integration, catalog, products, sync
 Requires at least: 6.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -32,6 +32,9 @@ Privacy policy: https://trychannel3.com/privacy
 No. The integration is designed for read-only access to product catalog data.
 
 == Changelog ==
+
+= 1.1.0 =
+* Track attribution-bearing visits on all pages, not just product pages, so AI-referred sessions that land off a product page are still attributed.
 
 = 1.0.4 =
 * Add status endpoint so the Channel3 connect flow can detect the plugin before redirecting.
