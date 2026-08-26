@@ -1,6 +1,6 @@
 {
   "name": "channel3-for-woocommerce",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Channel3",
   "license": "GPL-3.0+",
   "packageManager": "pnpm@10.34.5",
@@ -23,6 +23,7 @@
     "lint:js": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
     "plugin-zip": "wp-scripts plugin-zip",
+    "release:wordpress-org": "scripts/release-to-wordpress-org.sh",
     "start": "wp-scripts start --blocks-manifest",
     "wp-env": "wp-env",
     "postinstall": "rm -f src/block.json && composer install"

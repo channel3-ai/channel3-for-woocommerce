@@ -33,14 +33,9 @@ class Tracking_Script {
 	/**
 	 * Enqueue the tracking script and pass configuration data.
 	 *
-	 * Only loads on product pages to track product page views.
+	 * Loads on every frontend page; product identifiers are included on product pages only.
 	 */
 	public static function enqueue_tracking_script() {
-		// Only track product pages.
-		if ( ! function_exists( 'is_product' ) || ! is_product() ) {
-			return;
-		}
-
 		// Only load if connected to Channel3.
 		if ( ! function_exists( 'channel3_is_connected' ) || ! channel3_is_connected() ) {
 			return;
@@ -52,10 +47,13 @@ class Tracking_Script {
 			return;
 		}
 
-		// Get product data.
+		// Product data is available on product pages only.
 		global $product;
-		if ( ! $product instanceof \WC_Product ) {
-			return;
+		$product_id  = null;
+		$product_sku = null;
+		if ( function_exists( 'is_product' ) && is_product() && $product instanceof \WC_Product ) {
+			$product_id  = (string) $product->get_id();
+			$product_sku = $product->get_sku();
 		}
 
 		// Enqueue the tracking script.
@@ -71,8 +69,8 @@ class Tracking_Script {
 		$config = array(
 			'accountId'  => $merchant_id,
 			'endpoint'   => self::get_pixel_endpoint(),
-			'productId'  => (string) $product->get_id(),
-			'productSku' => $product->get_sku(),
+			'productId'  => $product_id,
+			'productSku' => $product_sku,
 			'currency'   => function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : null,
 		);
 
@@ -141,8 +139,7 @@ class Tracking_Script {
 		$order->update_meta_data( '_channel3_checkout_tracked', '1' );
 		$order->save();
 
-		// Output inline script — we don't enqueue because the thank-you page
-		// may not have our tracking.js loaded (it's only on product pages).
+		// Output inline script — order data is server-side, no dependency on the enqueued tracking.js.
 		$json = wp_json_encode( $checkout_data );
 		?>
 		<script type="text/javascript">

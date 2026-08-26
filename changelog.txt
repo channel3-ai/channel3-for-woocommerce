@@ -1,5 +1,11 @@
 *** Channel3 for WooCommerce Changelog ***
 
+2026-08-26 - version 1.1.0
+* Added - Track attribution-bearing visits on all pages, not just product pages, so AI-referred sessions that land off a product page are still attributed
+
+2026-06-10 - version 1.0.4
+* Added - channel3-status wc-api endpoint for connect flow preflight detection
+
 2026-01-13 - version 1.0.0
 * Added - Initial release
 * Added - OAuth connection flow for Channel3
