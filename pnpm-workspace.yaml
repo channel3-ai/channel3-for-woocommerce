@@ -1,12 +1,8 @@
 overrides:
   '@babel/runtime': '>=7.26.10'
   adm-zip: '>=0.6.0'
-  d3-color: '>=3.1.0'
   linkify-it: '>=5.0.2'
-  locutus: '>=3.0.25'
   markdown-it: '>=14.2.0'
   minimatch: '>=9.0.9'
-  react-router: '>=7.18.3'
   serialize-javascript: '>=7.1.0'
-  showdown: '>=2.1.0'
   webpack-dev-server: '>=5.2.6'
