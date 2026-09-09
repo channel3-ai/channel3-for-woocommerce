@@ -3,7 +3,7 @@ overrides:
   adm-zip: '>=0.6.0'
   d3-color: '>=3.1.0'
   linkify-it: '>=5.0.2'
-  locutus: '>=2.0.39'
+  locutus: '>=3.0.25'
   markdown-it: '>=14.2.0'
   minimatch: '>=9.0.9'
   react-router: '>=6.30.6'
