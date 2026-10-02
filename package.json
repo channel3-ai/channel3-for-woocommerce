@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "author": "Channel3",
   "license": "GPL-3.0+",
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@10.34.6",
   "main": "build/index.js",
   "files": [
     "assets/**",
