@@ -1,7 +1,7 @@
 overrides:
   '@babel/runtime': '>=7.26.10'
   adm-zip: '>=0.6.0'
-  linkify-it: '>=5.0.2'
+  linkify-it: '>=6.1.0'
   markdown-it: '>=14.2.0'
   minimatch: '>=9.0.9'
   serialize-javascript: '>=7.1.0'
