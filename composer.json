@@ -8,7 +8,7 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9.0",
-		"automattic/jetpack-autoloader": "^5",
+		"automattic/jetpack-autoloader": "^6",
 		"php-stubs/wordpress-stubs": "^7.0.1"
 	},
 	"config": {
